@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Document Certification</title>
+
+  <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!--Import Google Icon Font-->
+     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+     <!-- Compiled and minified CSS -->
+      <!-- <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css" media="screen,projection"/> -->
+
+    <!--Let browser know website is optimized for mobile-->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=2.0"/> -->
+
+</head>
+<body>
+
+  <nav>
+   <div class="nav-wrapper">
+     <a href="#" class="brand-logo center">Proof of Existence / (POE) Document Validation</a>
+     <ul id="nav-mobile" class="right hide-on-med-and-down">
+       <li><a  onclick="getmyTransaction()">Get My Validated Documents</a></li>
+     </ul>
+   </div>
+ </nav>
+
+
+  <h5>Select a document and have it certified in the Blockchain</h5>
+ <br>
+  <tr>
+      <td>Select a File to Load:</td>
+      <br>
+      <td><input type="file" id="fileToLoad"></td>
+      <br>
+      <td><button onclick="loadFileAsText()">Validate File</button><td>
+  </tr>
+   <h5>If it has been certified already, you will be redirected to the original record</h5>
+
+  <br>
+  <div id="inputTextToSave"></div>
+  <div id="msg"></div>
+
+
+   <!-- Modal Structure -->
+   <div id="modal1" class="modal">
+     <div class="modal-content">
+       <h4>Original Record Exist</h4>
+        <div id="getdoctorid"></div>
+        <div id="timestamp"></div>
+     </div>
+     <div class="modal-footer">
+       <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+     </div>
+   </div>
+
+   <div id="modal2" class="modal">
+     <div class="modal-content">
+       <h4>My Validated Document List</h4>
+       <div class="userCollection">
+         </div>
+     </div>
+     <div class="modal-footer">
+       <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+     </div>
+   </div>
+
+
+  <div class="collection">
+    </div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+   $(document).ready(function(){
+     // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+     $('.modal').modal();
+   });
+</script>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+<script src="app.js"></script>
+<script>
+
+$(".collection").append('<a class="collection-item"><span class="badge">Transaction</span><b>Document Hash</b></a>');
+
+
+</script>
+
+</html>
