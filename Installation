@@ -1,0 +1,27 @@
+How to Install the System
+
+Download nodeJS and npm : https://nodejs.org/en/download/
+
+commands used:
+
+1. npm install -g truffle
+
+Inside the working directory, run
+
+2. truffle unbox webpack
+
+Deploying Smart Contract
+
+//Install Truffle HD Wallet Provider
+
+https://www.npmjs.com/package/truffle-hdwallet-provider
+
+//Used mnemonic
+
+var mnemonic = "bean buffalo park similar ladder gown shove melody alone globe ordinary finish";
+
+Install Dependency Modules
+
+1. npm install --save sha1
+2. npm install --save uuid-by-string
+3. npm install --save sha1
