@@ -20,4 +20,4 @@ This project provides a Web3 DApp - Decentralized Application connected to Ether
 
 #Requirement
 
-1. Metamask to be added to the browser with netowrk set to Rinkeby Network
+1. Metamask to be added to the browser with network set to Rinkeby Network
