@@ -5,26 +5,30 @@ import { default as contract } from 'truffle-contract';
 import {default as sha1} from 'sha1';
 import {default as getUuidByString} from 'uuid-by-string';
 import {default as ethers} from 'ethers';
+import ipfsAPI from 'ipfs-api';
+import {default as buffer} from 'buffer';
 
 
 import verify_artifacts from '../../build/contracts/Verify.json'
 
 var provider = ethers.providers.getDefaultProvider('rinkeby');
+const ipfs_net = ipfsAPI('ipfs.infura.io', '5001', {protocol: 'https'});
 
 var Verify = contract(verify_artifacts);
 
 
-
+var ipfsHash;
 
 
 window.loadFileAsText = function() {
   var fileToLoad = document.getElementById("fileToLoad").files[0];
 
   var fileReader = new FileReader();
-  fileReader.readAsText(fileToLoad, "UTF-8");
+  fileReader.readAsArrayBuffer(fileToLoad);
   fileReader.onload = function(fileLoadedEvent){
       var textFromFileLoaded = fileLoadedEvent.target.result;
-      var fileSha1Hash = sha1(textFromFileLoaded);
+      var mybuffer = new Buffer(textFromFileLoaded);
+      var fileSha1Hash = sha1(mybuffer);
       var uuid = getUuidByString(fileSha1Hash);
       var fileHash = uuid.replace(/-/g,"");
 
@@ -49,6 +53,9 @@ window.loadFileAsText = function() {
               s = s.substring(0,s.indexOf("GMT")) + "UTC";
               $('#getdoctorid').html('Block Number: '+block);
               $('#timestamp').html('Timestamp: '+s);
+              ipfsHash = await contractInstance.getIpfsHash(AsciiFileHash);
+              $('#displayFiles').html(ipfsHash);
+              console.log("This is IPFSHASH",ipfsHash);
               $('#modal1').modal('open');
             });
 
@@ -60,12 +67,20 @@ window.loadFileAsText = function() {
             var transactionHash = transaction.receipt.transactionHash;
             console.log(fileHash);
             console.log(transactionHash);
-            contractInstance.insertTransactionDetails(fileHash,transactionHash,{gas: 990000, from: web3.eth.accounts[0]}).then(function(transaction){
-              console.log("Transaction Hash Added");
-            })
-
-
+            console.log("waiting for IPFS Transaction");
+            ipfs_net.files.add(mybuffer, function (err, file) {
+              if (err) {
+                console.log(err);
+              }else{
+              console.log(file);
+              var ipfsHash = file[0].hash;
+              console.log(ipfsHash);
+              contractInstance.insertTransactionDetails(fileHash,transactionHash,ipfsHash,{gas: 990000, from: web3.eth.accounts[0]}).then(function(transaction){
+                console.log("Transaction Hash Added");
+              })
+            }
           });
+        });
         }
       })
   };
@@ -81,6 +96,10 @@ window.getmyTransaction = function() {
         $('#modal2').modal('open');
       }
     });
+}
+
+window.myFunction = function() {
+  window.open("https://gateway.ipfs.io/ipfs/"+ipfsHash,"_blank");
 }
 
 
@@ -100,7 +119,7 @@ $( document ).ready(function() {
   Verify.setProvider(web3.currentProvider);
 
   Verify.deployed().then(async function(contractInstance){
-      var totallist = await contractInstance.getTotalHashes.call();
+      var totallist = await contractInstance.getTotalHashes();
       var latestNumber = totallist.length;
       console.log("Latest Number is ",latestNumber);
       var startNumber = latestNumber-1;
