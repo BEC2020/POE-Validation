@@ -11,13 +11,7 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!--Import Google Icon Font-->
-     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
-     <!-- Compiled and minified CSS -->
-      <!-- <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css" media="screen,projection"/> -->
 
-    <!--Let browser know website is optimized for mobile-->
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=2.0"/> -->
 
 </head>
 <body>
@@ -44,8 +38,7 @@
    <h5>If it has been certified already, you will be redirected to the original record</h5>
 
   <br>
-  <div id="inputTextToSave"></div>
-  <div id="msg"></div>
+
 
 
    <!-- Modal Structure -->
@@ -54,11 +47,13 @@
        <h4>Original Record Exist</h4>
         <div id="getdoctorid"></div>
         <div id="timestamp"></div>
+        <input type="button" onclick="myFunction()">click on the left button to view file from IPFS</button>
      </div>
      <div class="modal-footer">
        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
      </div>
    </div>
+ </div>
 
    <div id="modal2" class="modal">
      <div class="modal-content">
@@ -81,9 +76,9 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
    $(document).ready(function(){
-     // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
      $('.modal').modal();
    });
+
 </script>
 
 </body>
